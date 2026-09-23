@@ -65,7 +65,7 @@ MODELS = [
 # 默认用稳定的云端 Flash（本地模型可能还在下载/推理慢，不设为默认）
 DEFAULT = "deepseek-flash"
 _BY_ID = {m["id"]: m for m in MODELS}
-
+_state = {"model": MODELS[0]["id"] if MODELS else None}
 
 # def current():
 #     """返回当前选中模型的内部 id。"""
