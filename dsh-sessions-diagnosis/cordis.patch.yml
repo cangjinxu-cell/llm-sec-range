@@ -1,0 +1,18 @@
+# dsh-sessions-diagnosis bundle patch
+#
+# One host row mounts the plugin. Installing through the official CLI, from a
+# checkout of this repo —
+#
+#   dsh plugin --profile web add .
+#
+# — makes `dsh` detect `dsh.bundle.patch` and append `dsh-sessions-diagnosis` to
+# `dsh.profile.bundles`, so this patch merges automatically. The `.` is enough
+# because `dsh` rewrites a relative spec against the invoking directory; pnpm
+# itself runs with cwd set to the profile.
+#
+# The browser half needs no row of its own: the web shell discovers it from the
+# package's `dsh.client` declaration and its `exports["./client"]` entry. Adding
+# a second mount line by hand AND installing with the CLI loads two copies.
+- insert:
+    - id: sessions-diagnosis
+      name: 'dsh-sessions-diagnosis'

@@ -1,0 +1,23 @@
+{
+  "dom": {
+    "title": "DSH Desktop — 连接面板",
+    "pill": "未连接",
+    "pillClass": "pill",
+    "probe": "http://127.0.0.1:3080 端口在监听，但需要带 token 的地址 · 检测到监听端口：3080填入 :3080",
+    "dshFound": "已找到：C:\\Users\\user\\AppData\\Local\\npm-cache\\_npx\\1e7f6d9597241db0\\node_modules\\.bin\\dsh.cmd",
+    "sessionRows": 4,
+    "firstSessionTitle": "为自己编写桌面端应用",
+    "cardCount": 3,
+    "dshApiKeys": 18
+  },
+  "diagnostics": [],
+  "warnings": [],
+  "image": "E:\\deepseek\\artifacts\\selftest-shell.png",
+  "imageBytes": 121106,
+  "versions": {
+    "electron": "44.4.3",
+    "node": "24.21.0",
+    "chrome": "152.0.7977.130"
+  },
+  "result": "PASS"
+}

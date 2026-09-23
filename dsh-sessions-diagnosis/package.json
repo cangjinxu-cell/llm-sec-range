@@ -1,0 +1,55 @@
+{
+  "name": "dsh-sessions-diagnosis",
+  "version": "0.1.1",
+  "description": "Diagnose and repair DSH sessions that will not open after a harness upgrade, from the CLI, from an agent tool, or from a dashboard in the DSH web UI.",
+  "type": "module",
+  "main": "lib/index.js",
+  "exports": {
+    ".": "./lib/index.js",
+    "./client": "./lib/client.js",
+    "./core": "./lib/core/index.js",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "lib/index.js",
+    "lib/client.js",
+    "lib/core/*.js",
+    "bin/*.mjs",
+    "cordis.patch.yml",
+    "README.md",
+    "README.zh.md",
+    "LICENSE",
+    "docs/*.md"
+  ],
+  "bin": {
+    "dsh-session-doctor": "./bin/dsh-session-doctor.mjs"
+  },
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    },
+    "client": {
+      "platform": "web",
+      "inject": [
+        "@deepseek-ai/dsh-client-ui-slots"
+      ]
+    }
+  },
+  "scripts": {
+    "test": "node test/run.mjs",
+    "doctor": "node bin/dsh-session-doctor.mjs",
+    "fetch-fixtures": "node test/fetch-fixtures.mjs"
+  },
+  "keywords": [
+    "dsh",
+    "deepseek-harness",
+    "session",
+    "diagnosis",
+    "repair",
+    "migration"
+  ],
+  "license": "MIT",
+  "engines": {
+    "node": ">=22.15"
+  }
+}

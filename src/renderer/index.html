@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; script-src 'self';"
+    />
+    <title>DSH Desktop — 连接面板</title>
+    <link rel="stylesheet" href="shell.css" />
+  </head>
+  <body>
+    <div class="app">
+      <header class="topbar">
+        <div class="brand">
+          <span class="logo-mark" aria-hidden="true">&gt;_</span>
+          <span class="brand-name">DSH&nbsp;Desktop</span>
+          <span class="brand-sub">DeepSeek Harness 桌面端</span>
+        </div>
+        <div class="topbar-right">
+          <span id="status-pill" class="pill">检测中…</span>
+          <button id="btn-topmost" class="ghost" title="总在最前">置顶</button>
+          <button id="btn-open-browser" class="ghost" title="在默认浏览器打开">浏览器</button>
+        </div>
+      </header>
+
+      <main class="content">
+        <!-- 连接卡片 -->
+        <section class="card" id="card-connect">
+          <div class="card-head">
+            <h2>连接到 harness</h2>
+            <p class="hint">
+              粘贴启动时打印的地址（含 token）：<code>dsh web: http://127.0.0.1:3080/?token=…</code>，
+              或只填 <code>http://127.0.0.1:3080</code>。
+            </p>
+          </div>
+          <div class="row">
+            <input id="conn-url" class="text" type="text" spellcheck="false" autocomplete="off"
+              placeholder="http://127.0.0.1:3080 或 dsh web: …/?token=…" />
+            <button id="btn-paste" class="ghost" title="从剪贴板读取">粘贴</button>
+            <button id="btn-connect" class="primary">连接</button>
+          </div>
+          <div class="row muted" id="probe-line">
+            <span>正在检测本机端口…</span>
+          </div>
+        </section>
+
+        <!-- 启动卡片 -->
+        <section class="card" id="card-launch">
+          <div class="card-head">
+            <h2>由桌面端启动 harness</h2>
+            <p class="hint">自动定位 <code>dsh</code> 并运行 <code>dsh web --no-open</code>，随后自动连接。</p>
+          </div>
+
+          <div class="field">
+            <label for="dsh-cmd">dsh 可执行文件</label>
+            <div class="row">
+              <input id="dsh-cmd" class="text mono" type="text" spellcheck="false" placeholder="自动查找" />
+              <button id="btn-locate" class="ghost">自动查找</button>
+            </div>
+            <div class="muted" id="dsh-found-line"></div>
+          </div>
+
+          <div class="field">
+            <label for="launch-ws">工作目录</label>
+            <div class="row">
+              <input id="launch-ws" class="text mono" type="text" spellcheck="false" placeholder="默认：最近会话的工作目录" />
+              <button id="btn-browse-ws" class="ghost">浏览…</button>
+            </div>
+          </div>
+
+          <div class="grid-2">
+            <div class="field">
+              <label for="launch-home">数据目录 DSH_HOME</label>
+              <input id="launch-home" class="text mono" type="text" spellcheck="false" placeholder="默认 ~/.dsh（留空）" />
+            </div>
+            <div class="field">
+              <label for="launch-port">端口</label>
+              <input id="launch-port" class="text mono" type="text" spellcheck="false" value="0" title="0 表示由系统分配空闲端口" />
+            </div>
+          </div>
+
+          <div class="row actions">
+            <button id="btn-launch" class="primary">启动并连接</button>
+            <button id="btn-stop-child" class="ghost">停止自启实例</button>
+          </div>
+
+          <div class="log-wrap">
+            <div id="harness-log" class="log" aria-live="polite"></div>
+          </div>
+        </section>
+
+        <!-- 最近会话 -->
+        <section class="card" id="card-sessions">
+          <div class="card-head">
+            <h2>最近会话</h2>
+            <button id="btn-refresh" class="ghost" title="刷新">刷新</button>
+          </div>
+          <div id="session-list" class="session-list"></div>
+        </section>
+      </main>
+
+      <footer class="statusbar">
+        <span id="foot-status">就绪</span>
+        <span class="spacer"></span>
+        <span class="muted">Ctrl+R 重新加载 · F12 开发者工具 · 托盘可随时唤起</span>
+      </footer>
+    </div>
+
+    <script src="shell.js"></script>
+  </body>
+</html>
