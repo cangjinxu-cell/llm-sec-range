@@ -41,3 +41,6 @@ PORT = int(os.environ.get("PORT", "0")) or None  # None -> 运行时随机分配
 # Agent 沙箱：是否走 Docker 容器执行（生产隔离）。本地快速体验可关。
 AGENT_USE_DOCKER = os.environ.get("AGENT_USE_DOCKER", "0") == "1"
 AGENT_DOCKER_IMAGE = os.environ.get("AGENT_DOCKER_IMAGE", "llm-sec-range-agent-sandbox")
+# ========== 自定义中转站配置 ==========
+CUSTOM_API_KEY = os.environ.get("CUSTOM_API_KEY", "")
+CUSTOM_BASE_URL = os.environ.get("CUSTOM_BASE_URL", "")
