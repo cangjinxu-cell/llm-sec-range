@@ -2,7 +2,7 @@
 provider: 'deepseek'(直连) | 'openrouter'(聚合众多国产/国外小模型)。"""
 import requests
 import config
-
+import uuid
 _SESSION = requests.Session()
 # 本地推理专用 session：完全忽略环境代理（避开 Clash SOCKS 劫持 localhost）
 _LOCAL_SESSION = requests.Session()
@@ -21,9 +21,18 @@ def _provider_conf(provider):
     if provider == "local":
         # Ollama 本地，无需真实 key
         return (config.OLLAMA_BASE_URL + "/chat/completions", "ollama", {})
+
     if provider == "custom":
-        return (config.CUSTOM_BASE_URL.rstrip("/") + "/chat/completions", config.CUSTOM_API_KEY, {})
-    # 后续按 OpenAI 兼容格式构造请求即可
+        # 为每个请求生成一个会话 ID，满足中转站 x-opencode-session 要求
+        session_id = str(uuid.uuid4())
+        extra_headers = {
+            "x-opencode-session": session_id,
+            "User-Agent": "llm-sec-range/1.0",
+        }
+        return (config.CUSTOM_BASE_URL.rstrip("/") + "/chat/completions",
+                config.CUSTOM_API_KEY,
+                extra_headers)
+
     # 默认 deepseek 直连
     return (config.DEEPSEEK_BASE_URL + "/chat/completions",
             config.DEEPSEEK_API_KEY, {})
