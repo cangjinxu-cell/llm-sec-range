@@ -58,4 +58,4 @@ if __name__ == "__main__":
     print(f"  目标模型: {config.DEEPSEEK_MODEL} @ {config.DEEPSEEK_BASE_URL}")
     print(f"  Agent Docker 隔离: {'开' if config.AGENT_USE_DOCKER else '关(本地模拟)'}")
     print("=" * 60)
-    app.run(host="127.0.0.1", port=port, debug=False)
+    app.run(host="0.0.0.0", port=port, debug=False)
