@@ -67,16 +67,31 @@ DEFAULT = "deepseek-flash"
 _BY_ID = {m["id"]: m for m in MODELS}
 
 
-def current():
-    """返回当前选中模型的内部 id。"""
-    m = session.get("target_model")
-    return m if m in _BY_ID else DEFAULT
+# def current():
+#     """返回当前选中模型的内部 id。"""
+#     m = session.get("target_model")
+#     return m if m in _BY_ID else DEFAULT
 
+
+# def current_entry():
+#     """返回当前选中模型的完整配置 dict。"""
+#     return _BY_ID[current()]
+def current():
+    cid = _state.get("model")
+    if cid not in _BY_ID:
+        # 如果存的值不存在，回退到列表中的第一个模型
+        cid = MODELS[0]["id"] if MODELS else None
+        if cid:
+            _state["model"] = cid
+    return cid
 
 def current_entry():
-    """返回当前选中模型的完整配置 dict。"""
-    return _BY_ID[current()]
-
+    cid = current()
+    if cid not in _BY_ID:
+        # 双保险：如果还是找不到，直接返回第一个模型
+        cid = MODELS[0]["id"]
+        _state["model"] = cid
+    return _BY_ID[cid]
 
 def set_model(m):
     if m in _BY_ID:
