@@ -21,6 +21,9 @@ def _provider_conf(provider):
     if provider == "local":
         # Ollama 本地，无需真实 key
         return (config.OLLAMA_BASE_URL + "/chat/completions", "ollama", {})
+    if provider == "custom":
+        return (config.CUSTOM_BASE_URL.rstrip("/") + "/chat/completions", config.CUSTOM_API_KEY, {})
+    # 后续按 OpenAI 兼容格式构造请求即可
     # 默认 deepseek 直连
     return (config.DEEPSEEK_BASE_URL + "/chat/completions",
             config.DEEPSEEK_API_KEY, {})
